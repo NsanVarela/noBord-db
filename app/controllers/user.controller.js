@@ -14,11 +14,12 @@ exports.create = (req, res) => {
         language: req.body.language,
         type: req.body.type
     })
+    console.log('user back :', user)
 
     User.create(user, (err, data) => {
         err ? res.status(500).send({
             message: err.message || `Some error occurred while creating the User.`
-        }) : res.send(data)
+        }) : res.end(JSON.stringify(data))
     })
 }
 
