@@ -1,4 +1,6 @@
-const User = require(`../models/user.model`)
+const User = require(`../models/user.model`);
+const Cryptr = require(`cryptr`);
+const cryptr = new Cryptr(`myTotalSecretKey`);
 
 // Create and save a new User
 exports.create = (req, res) => {
@@ -7,15 +9,13 @@ exports.create = (req, res) => {
             message: `Content cannot be empty!`
         })
     }
-
+    const encryptedPass = cryptr.encrypt(req.body.password);
     const user = new User({
         username: req.body.username,
-        password: req.body.password,
+        password: encryptedPass,
         language: req.body.language,
         type: req.body.type
     })
-    console.log('user back :', user)
-
     User.create(user, (err, data) => {
         err ? res.status(500).send({
             message: err.message || `Some error occurred while creating the User.`
@@ -32,7 +32,11 @@ exports.findAll = (req, res) => {
 }
 
 exports.findOne = (req, res) => {
-    User.findById(req.params.userId, (err, data) => {
+    const user = {
+        username : req.body.username,
+        password: req.body.password
+    };
+    User.findUser(user, (err, data) => {
         if(err) {
             if(err.kind === `not_found`) {
                 res.status(404).send({
@@ -43,7 +47,9 @@ exports.findOne = (req, res) => {
                     message: `Error retrieving User with id ${req.params.userId}`
                 })
             }
-        } else res.send(data)
+        } else {
+            res.send(data)
+        }
     })
 }
 

@@ -32,8 +32,9 @@ User.getAll = result => {
     })
 }
 
-User.findById = (userId, result) => {
-    sql.query(`SELECT * FROM Users WHERE id = ${userId}`, (err, res) => {
+User.findUser = (user, result) => {
+    console.log('user find : ', user)
+    sql.query('SELECT * FROM Users WHERE password = ?',[user.password], (err, res) => {
         if(err) {
             console.log(`error: `, err)
             result(err, null);
@@ -41,7 +42,7 @@ User.findById = (userId, result) => {
         }
     
         if(res.length) {
-            console.log(`found customer: `, res[0])
+            console.log(`found customer: `, res[0].password);
             result(null, res[0]);
             return
         }

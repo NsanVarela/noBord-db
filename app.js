@@ -1,14 +1,15 @@
+require(`dotenv`).config()
 const express = require(`express`)
-const bodyParser = require(`body-parser`)
 const cors = require('cors')
 const app = express()
+const bodyParser = require(`body-parser`)
+const jwt = require(`jsonwebtoken`)
 
-app.use(bodyParser.json())
 app.use(cors())
-
-require(`dotenv`).config()
-
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+
+
 
 app.get(`/`, (req, res) => {
     res.json( {message: `Welcome to noBord Database API.`} )
