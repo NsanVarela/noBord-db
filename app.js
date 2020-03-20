@@ -6,13 +6,15 @@ const bodyParser = require(`body-parser`)
 const jwt = require(`jsonwebtoken`)
 
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 app.use(bodyParser.json())
 
-
-
 app.get(`/`, (req, res) => {
-    res.json( {message: `Welcome to noBord Database API.`} )
+    res.json({
+        message: `Welcome to noBord Database API.`
+    })
 })
 
 require(`./app/routes/user.routes`)(app)
