@@ -1,23 +1,18 @@
 require(`dotenv`).config()
 const express = require(`express`)
 const cors = require('cors')
-const app = express()
 const bodyParser = require(`body-parser`)
-const jwt = require(`jsonwebtoken`)
+const app = express()
+const port = process.env.PORT || 3000
 
-app.use(cors())
-app.use(bodyParser.urlencoded({
-    extended: true
-}))
 app.use(bodyParser.json())
+app.use(cors())
+app.use(
+    bodyParser.urlencoded({ extended: true })
+)
 
-app.get(`/`, (req, res) => {
-    res.json({
-        message: `Welcome to noBord Database API.`
-    })
-})
+const Users = require(`./routes/Users`)
 
-require(`./app/routes/user.routes`)(app)
+app.use(`/users`, Users)
 
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}.`))
+app.listen(port, () => console.log(`Server is running on port ${port}.`))
