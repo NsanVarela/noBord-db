@@ -10,11 +10,12 @@ module.exports = db.sequelize.define(
             autoIncrement: true,
             allowNull: false
         },
-        // first_name: {
-        //     type: Sequelize.STRING
-        // },
         username: {
             type: Sequelize.STRING
+        },
+        age: {
+            type: Sequelize.NUMBER,
+            allowNull: true
         },
         email: {
             type: Sequelize.STRING
@@ -22,11 +23,35 @@ module.exports = db.sequelize.define(
         password: {
             type: Sequelize.STRING
         },
+        phone: {
+            type: Sequelize.NUMBER,
+            allowNull: true
+        },
         language: {
             type: Sequelize.STRING,
             allowNull: true
         },
         type: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        profession: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        experience: {
+            type: Sequelize.NUMBER,
+            allowNull: true
+        },
+        country: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        description: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        skills: {
             type: Sequelize.STRING,
             allowNull: true
         }
